@@ -1,6 +1,7 @@
 from src.credit_card_fraud_detection.constants import *
 from src.credit_card_fraud_detection.utils.common import read_yaml,create_directories
-from src.credit_card_fraud_detection.entity.config_entity import (DataIngestionConfig)
+from src.credit_card_fraud_detection.entity.config_entity import (DataIngestionConfig,
+                                                                  DataValidationConfig)
 
 
 
@@ -24,4 +25,18 @@ class ConfiguartionManager:
             local_data_file=config.local_data_file
         )
         return data_ingestion_config
+    
+
+    def get_data_validation_config(self)->DataValidationConfig:
+        config=self.config.data_validation
+        schema=self.schema.COLUMNS
+        create_directories([config.root_dir])
+        data_validation_config=DataValidationConfig(
+            root_dir=config.root_dir,
+            local_data_file=config.local_data_file,
+            STATUS_FILE=config.STATUS_FILE,
+            all_schema=schema
+        )
+        return data_validation_config
+    
         

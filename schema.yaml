@@ -1,0 +1,11 @@
+COLUMNS:
+  TransactionID: int64     
+  TransactionDate: object
+  Amount: float64
+  MerchantID: int64    
+  TransactionType: object  
+  Location: object
+  IsFraud: int64
+
+TARGET_COLUMN:          
+  name: IsFraud
