@@ -731,3 +731,326 @@ Python enforces type hints at runtime
 ```
 
 This makes utility functions safer and is commonly used in structured machine learning project templates.
+
+# Using dataclass in Python (Structured Configuration Guide for ML Projects)
+
+## Overview
+
+In structured Python and machine learning pipeline projects, the `dataclass` decorator is used to create **clean, readable, and structured classes for storing configuration values**.
+
+It is especially useful inside:
+
+* config_entity.py
+* configuration.py
+* pipeline components
+
+The `dataclass` decorator automatically generates:
+
+* **init**()
+* **repr**()
+* **eq**()
+
+This reduces boilerplate code and improves readability.
+
+---
+
+## Step 1: Import dataclass
+
+```python
+from dataclasses import dataclass
+```
+
+---
+
+## Step 2: Example Without dataclass
+
+Traditional class example:
+
+```python
+class ModelConfig:
+
+    def __init__(self, model_name, learning_rate):
+
+        self.model_name = model_name
+        self.learning_rate = learning_rate
+```
+
+Usage:
+
+```python
+config = ModelConfig("fraud_detector", 0.01)
+```
+
+Works correctly but requires manual constructor writing.
+
+---
+
+## Step 3: Example With dataclass
+
+Using dataclass:
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass
+class ModelConfig:
+
+    model_name: str
+    learning_rate: float
+```
+
+Usage:
+
+```python
+config = ModelConfig("fraud_detector", 0.01)
+```
+
+Cleaner and shorter.
+
+Python automatically creates the constructor.
+
+---
+
+## What dataclass Automatically Generates
+
+When using:
+
+```python
+@dataclass
+class Example:
+    a: int
+    b: int
+```
+
+Python creates:
+
+```
+__init__()
+__repr__()
+__eq__()
+```
+
+Example:
+
+```python
+obj = Example(1, 2)
+print(obj)
+```
+
+Output:
+
+```
+Example(a=1, b=2)
+```
+
+---
+
+## Why dataclass is Useful in ML Projects
+
+Advantages:
+
+* Organizes configuration parameters
+* Improves readability
+* Reduces boilerplate code
+* Works well with YAML configs
+* Encourages structured pipeline design
+
+Example use cases:
+
+```
+DataIngestionConfig
+ModelTrainerConfig
+DataValidationConfig
+```
+
+---
+
+## Example in ML Pipeline Project Structure
+
+File:
+
+```
+src/project/entity/config_entity.py
+```
+
+Example:
+
+```python
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass
+class DataIngestionConfig:
+
+    root_dir: Path
+    source_URL: str
+    local_data_file: Path
+    unzip_dir: Path
+```
+
+Usage:
+
+```python
+data_ingestion_config = DataIngestionConfig(
+    root_dir=Path("artifacts/data_ingestion"),
+    source_URL="https://example.com/data.zip",
+    local_data_file=Path("artifacts/data.zip"),
+    unzip_dir=Path("artifacts/data")
+)
+```
+
+This keeps configuration structured and reusable.
+
+---
+
+## dataclass with YAML Configuration Example
+
+Example workflow:
+
+```
+config.yaml -> read_yaml() -> ConfigBox -> dataclass object
+```
+
+Example:
+
+```python
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass
+class TrainingConfig:
+
+    root_dir: Path
+    model_path: Path
+    learning_rate: float
+```
+
+Then values are assigned from YAML configuration.
+
+---
+
+## dataclass vs Dictionary Comparison
+
+Dictionary:
+
+```python
+config = {
+    "learning_rate": 0.01
+}
+```
+
+Access:
+
+```python
+config["learning_rate"]
+```
+
+Dataclass:
+
+```python
+config.learning_rate
+```
+
+Dataclasses provide better structure and type clarity.
+
+---
+
+## dataclass with Type Hints (Best Practice)
+
+Example:
+
+```python
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass
+class ModelTrainerConfig:
+
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    model_name: str
+```
+
+Benefits:
+
+* Type-safe configuration
+* Cleaner pipeline components
+* Easier debugging
+
+---
+
+## Frozen dataclass (Optional Advanced Feature)
+
+Sometimes configurations should not change after creation.
+
+Example:
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class ModelConfig:
+
+    model_name: str
+    learning_rate: float
+```
+
+Now values cannot be modified:
+
+```
+config.learning_rate = 0.02
+```
+
+Error occurs.
+
+This protects configuration integrity.
+
+---
+
+## Typical Usage in Machine Learning Pipeline Projects
+
+Used inside:
+
+```
+entity/config_entity.py
+```
+
+Example classes:
+
+```
+DataIngestionConfig
+DataValidationConfig
+DataTransformationConfig
+ModelTrainerConfig
+```
+
+Each pipeline component receives its own configuration object.
+
+---
+
+## Summary
+
+Without dataclass:
+
+```
+Manual constructor required
+More boilerplate code
+Harder to maintain
+```
+
+With dataclass:
+
+```
+Automatic constructor generation
+Cleaner syntax
+Structured configuration handling
+Industry-standard ML pipeline practice
+```
+
+Dataclasses make configuration handling cleaner, safer, and more maintainable in modular machine learning projects.
