@@ -4,7 +4,7 @@ notebook
 numpy
 scikit-learn
 matplotlib
-python-box
+python-box       #exception handling with python box
 pyYAML
 tqdm
 ensure
