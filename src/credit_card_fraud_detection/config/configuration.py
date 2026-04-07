@@ -1,12 +1,13 @@
 from src.credit_card_fraud_detection.constants import *
 from src.credit_card_fraud_detection.utils.common import read_yaml,create_directories
 from src.credit_card_fraud_detection.entity.config_entity import (DataIngestionConfig,
-                                                                  DataValidationConfig)
+                                                                  DataValidationConfig,
+                                                                  DataTransformationConfig)
 
 
 
 
-class ConfiguartionManager:
+class ConfigurationManager:
     def __init__(self,
                  config_filepath=CONFIG_FILE_PATH,
                  params_filepath=PARAMS_FILE_PATH,
@@ -38,5 +39,20 @@ class ConfiguartionManager:
             all_schema=schema
         )
         return data_validation_config
+    
+    def get_data_transformation_config(self)->DataTransformationConfig:
+        config=self.config.data_transformation
+        schema=self.schema
+        create_directories([config.root_dir])
+        data_transformation_config=DataTransformationConfig(
+            root_dir=config.root_dir,
+            input_data_path=config.input_data_path,
+            transformed_data_path=config.transformed_data_path,
+            encoding_columns=schema.ONEHOTENCODING_COLUMNS.encoding_columns,
+            date_time_column=schema.DATE_TIME_COLUMN.name,
+            drop_first=schema.ONEHOTENCODING_COLUMNS.drop_first,
+            target_column=schema.TARGET_COLUMN.name
+        )
+        return data_transformation_config
     
         

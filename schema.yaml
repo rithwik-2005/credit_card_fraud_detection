@@ -1,11 +1,20 @@
 COLUMNS:
-  TransactionID: int64     
+  TransactionID: int64
   TransactionDate: object
   Amount: float64
-  MerchantID: int64    
-  TransactionType: object  
+  MerchantID: int64
+  TransactionType: object
   Location: object
   IsFraud: int64
 
-TARGET_COLUMN:          
+TARGET_COLUMN:
   name: IsFraud
+
+ONEHOTENCODING_COLUMNS:
+  drop_first: true
+  encoding_columns:
+    - TransactionType
+    - Location
+
+DATE_TIME_COLUMN:
+  name: TransactionDate

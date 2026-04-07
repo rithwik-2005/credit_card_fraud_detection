@@ -1,5 +1,5 @@
 import os
-from src.credit_card_fraud_detection import logger
+from src.credit_card_fraud_detection.logging.logger import logger
 from src.credit_card_fraud_detection.entity.config_entity import DataIngestionConfig
 import shutil
 

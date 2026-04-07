@@ -11,4 +11,9 @@ data_validation:
   local_data_file: artifacts/data_ingestion/raw.csv
   STATUS_FILE: artifacts/data_validation/status.txt
 
+data_transaformation:
+  root_dir: artifacts/data_transformation
+  input_data_path: artifacts/data_ingestion/raw.csv
+  transformed_data_path: artifacts/data_transformation/transformed.csv
   
+
