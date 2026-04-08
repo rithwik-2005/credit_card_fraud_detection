@@ -1,9 +1,14 @@
+import sys
 from src.credit_card_fraud_detection.logging.logger import logger
 from src.credit_card_fraud_detection.pipeline.data_ingestion_pipeline import DataIngestionTrainingPipeline
 from src.credit_card_fraud_detection.pipeline.data_validation_pipeline import DataValidationTrainingPipeline
 from src.credit_card_fraud_detection.pipeline.data_transformation_pipeline import DataTransformationPipeline
 from src.credit_card_fraud_detection.pipeline.model_trainer_pipeline import ModelTrainerPipeline
 from src.credit_card_fraud_detection.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
 
 STAGE_NAME="Data Ingestion Stage"
 try:

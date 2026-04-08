@@ -36,10 +36,16 @@ class ModelTrainerConfig:
     y_train_data_path: Path
     y_test_data_path: Path
     model_name: str
-    model:str
+    model: str
     random_state: int
-    target_column: str
     test_size: float
+    n_estimators: int
+    max_depth: int
+    min_samples_split: int
+    min_samples_leaf: int
+    max_features: str
+    class_weight: str
+    target_column: str
 
 @dataclass
 class ModelEvaluationConfig:

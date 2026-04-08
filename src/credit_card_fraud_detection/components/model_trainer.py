@@ -5,6 +5,7 @@ from src.credit_card_fraud_detection.logging.logger import logger
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import joblib
+from imblearn.over_sampling import SMOTE
 
 class ModelTrainer:
     def __init__(self,config:ModelTrainerConfig):
@@ -35,9 +36,22 @@ class ModelTrainer:
     def model_training(self):
         try:
             x_train,x_test,y_train,y_test=self.train_test_data_split()
-            model=RandomForestClassifier(random_state=self.config.random_state)
+            # Apply SMOTE to handle class imbalance
+            smote = SMOTE(random_state=self.config.random_state)
+            x_train, y_train = smote.fit_resample(x_train, y_train)
+            logger.info("SMOTE applied to training data for class balancing")
+            model=RandomForestClassifier(
+                n_estimators=self.config.n_estimators,
+                max_depth=self.config.max_depth,
+                min_samples_split=self.config.min_samples_split,
+                min_samples_leaf=self.config.min_samples_leaf,
+                max_features=self.config.max_features,
+                class_weight=self.config.class_weight,
+                random_state=self.config.random_state
+            )
             model.fit(x_train,y_train)
             joblib.dump(model,os.path.join(self.config.root_dir,self.config.model_name))
+            logger.info("Model trained and saved successfully with hyperparameters and SMOTE")
         except Exception as e:
             logger.exception(e)
             raise e

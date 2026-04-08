@@ -2,6 +2,7 @@ import os
 from src.credit_card_fraud_detection.entity.config_entity import DataTransformationConfig
 from src.credit_card_fraud_detection.logging.logger import logger
 import pandas as pd
+import joblib
 
 class DataTransformation:
     def __init__(self,config: DataTransformationConfig):
@@ -26,6 +27,11 @@ class DataTransformation:
             #if root folder doesn't created by the configuation.py file then
             os.makedirs(self.config.root_dir,exist_ok=True)
             df.to_csv(self.config.transformed_data_path,index=False)
+            #This ensures inference always matches training feature columns
+            joblib.dump(
+                df.drop("IsFraud", axis=1).columns.tolist(),
+                "artifacts/data_transformation/feature_columns.pkl"
+            )
             logger.info("transformation dataset is completed")
         except Exception as e:
             logger.exception(e)
