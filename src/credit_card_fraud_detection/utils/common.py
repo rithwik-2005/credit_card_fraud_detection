@@ -1,6 +1,6 @@
 import os
 import yaml
-from src.credit_card_fraud_detection.logging import logger
+from src.credit_card_fraud_detection.logging.logger import logger
 import json
 import joblib
 from ensure import ensure_annotations

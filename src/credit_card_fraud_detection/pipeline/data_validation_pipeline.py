@@ -4,7 +4,7 @@ from src.credit_card_fraud_detection.logging.logger import logger
 
 STAGE_NAME="Data Validation Stage"
 
-class DataValidationTriningPipeline:
+class DataValidationTrainingPipeline:
     def __init__(self):
         pass
 

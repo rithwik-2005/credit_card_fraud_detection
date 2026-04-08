@@ -13,7 +13,7 @@ class DataValidation:
             validation_status=None
             data=pd.read_csv(self.config.local_data_file)
             all_cols=list(data.columns)
-            all_schema=self.config.all_schema.key()
+            all_schema=self.config.all_schema.keys()
             for col in all_cols:
                 if col not in all_schema:
                     validation_status=False

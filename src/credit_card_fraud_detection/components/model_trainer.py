@@ -22,10 +22,10 @@ class ModelTrainer:
                                                            random_state=self.config.random_state,
                                                           test_size=self.config.test_size)
             logger.info("data is successfully divided using train_test_split")
-            x_train.to_csv(self.config.x_train_data_path)
-            x_test.to_csv(self.config.x_test_data_path)
-            y_train.to_csv(self.config.y_train_data_path)
-            y_test.to_csv(self.config.y_test_data_path)
+            x_train.to_csv(self.config.x_train_data_path, index=False)
+            x_test.to_csv(self.config.x_test_data_path, index=False)
+            y_train.to_csv(self.config.y_train_data_path, index=False)
+            y_test.to_csv(self.config.y_test_data_path, index=False)
             logger.info("splitted data is successfully saved in the root_dir folder")
         except Exception as e:
             logger.exception(e)

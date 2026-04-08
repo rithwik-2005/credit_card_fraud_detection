@@ -48,7 +48,7 @@ class ModelEvaluation:
                     "matrix":matrix.tolist()
                     }
                 
-                save_json(path=self.config.metric_file,
+                save_json(path=Path(self.config.metric_file),
                           data=score
                           )
                 logger.info("Metrics saved locally as JSON")
