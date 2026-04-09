@@ -829,3 +829,9 @@ If services don't deploy:
    docker compose up --build
    ```
 
+<div align="center">
+
+# Thank You!
+
+</div>
+
