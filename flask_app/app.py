@@ -3,13 +3,17 @@ from flask import Flask, render_template, request
 import pandas as pd
 import requests
 
-app = Flask(__name__)
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(
+    __name__,
+    template_folder=os.path.join(APP_DIR, "..", "templates")
+)
 
-# Get FastAPI URL from environment, default to service name in docker compose
-FASTAPI_URL = os.getenv("FASTAPI_URL", "http://fastapi:8000/predict")
+# Get FastAPI URL from environment, default to localhost for local dev
+FASTAPI_URL = os.getenv("FASTAPI_URL", "http://localhost:8000/predict")
 
 # Path to raw data for dropdown values
-RAW_CSV_PATH = "../artifacts/data_ingestion/raw.csv"
+RAW_CSV_PATH = os.path.join(APP_DIR, "..", "artifacts", "data_ingestion", "raw.csv")
 
 try:
     df = pd.read_csv(RAW_CSV_PATH)
