@@ -9,7 +9,7 @@ ensure
 joblib
 Flask
 Flask-Cors
-imblearn
+imbalanced-learn
 uvicorn
 python-dotenv
 fastapi
