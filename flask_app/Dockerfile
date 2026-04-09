@@ -10,6 +10,10 @@ WORKDIR /app
 # Install system dependency for pandas
 RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
 
+# Copy package files for editable install
+COPY setup.py /app/
+COPY src/ /app/src/
+
 # Install Python dependencies
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
