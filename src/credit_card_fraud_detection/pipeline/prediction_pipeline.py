@@ -14,7 +14,7 @@ class PredictionPipeline:
 
             logger.info("Loading Production model from MLflow Registry")
 
-            # ✅ Correct: load Production model
+            #  Correct: load Production model
             self.model = mlflow.pyfunc.load_model(
                 "models:/RandomForestClassifier/Production"
             )
@@ -124,14 +124,14 @@ class PredictionPipeline:
 
                 return {
                     "prediction": 1,
-                    "message": "Fraud Transaction 🚨"
+                    "message": "Fraud Transaction "
                 }
 
             else:
 
                 return {
                     "prediction": 0,
-                    "message": "Legitimate Transaction ✅"
+                    "message": "Legitimate Transaction "
                 }
 
 

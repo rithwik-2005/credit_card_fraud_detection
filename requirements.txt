@@ -1,15 +1,16 @@
 pandas
 mlflow
-notebook
 numpy
 scikit-learn
-matplotlib
 python-box       #exception handling with python box
 pyYAML
 tqdm
 ensure
 joblib
-types-pyYAML
 Flask
 Flask-Cors
 imblearn
+uvicorn
+python-dotenv
+fastapi
+requests
