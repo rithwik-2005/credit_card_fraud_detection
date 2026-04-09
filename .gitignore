@@ -209,3 +209,10 @@ credit/
 data/
 *.csv
 artifacts/
+!artifacts/
+!artifacts/data_ingestion/
+!artifacts/data_ingestion/raw.csv
+!artifacts/data_transformation/
+!artifacts/data_transformation/feature_columns.pkl
+!artifacts/model_trainer/
+!artifacts/model_trainer/model.joblib

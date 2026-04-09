@@ -27,9 +27,14 @@ class PredictionPipeline:
                 "Production model not found. Loading local fallback model."
             )
 
-            self.model = joblib.load(
-                "artifacts/model_trainer/model.joblib"
-            )
+            local_model_path = Path("artifacts/model_trainer/model.joblib")
+            if not local_model_path.exists():
+                raise FileNotFoundError(
+                    f"Local fallback model not found at {local_model_path}. "
+                    "Make sure artifacts/model_trainer/model.joblib is included in the repository or available in your Docker build context."
+                )
+
+            self.model = joblib.load(local_model_path)
 
 
     def transform_input(self, input_data: dict):
